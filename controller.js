@@ -5,12 +5,12 @@ function main(){
 		tachiyomi.readFileContents(path).then(data => {
 			let parsedData = tachiyomi.parseData(data);
 			let rearrangedData = tachiyomi.rearrangeData(parsedData);
-			tachiyomi.getCache("cache.json").then(cache => {
+			tachiyomi.getCache(process.env.CACHE_PATH).then(cache => {
 				let writeData = tachiyomi.getWriteData(cache, rearrangedData);
 
 				tachiyomi.beautifyDisplayJSON(writeData);
 
-				tachiyomi.saveFileContents("cache.json", writeData).then(() => {
+				tachiyomi.saveFileContents(process.env.CACHE_PATH, writeData).then(() => {
 					console.log("Done");
 				}).catch(e => {
 					console.log(e);
